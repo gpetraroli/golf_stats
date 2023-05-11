@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:async';
 
 import 'package:geolocator/geolocator.dart';
 
@@ -37,7 +37,13 @@ class LocationService {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition();
+    var position = await Geolocator.getCurrentPosition();
+    return position;
+    // if (position.accuracy <= 1) {
+    //   return position;
+    // } else {
+    //   return LocationService.getLocation();
+    // }
   }
 
   static double getDistanceBetween(Position start, Position end) {

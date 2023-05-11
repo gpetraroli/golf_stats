@@ -58,50 +58,53 @@ class _DistanceNewScreenState extends State<DistanceNewScreen> {
       appBar: AppBar(title: const Text('New Distance')),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: _getStartLocation,
-                  child: const Text('get start location'),
-                ),
-                _isFetchingStartLocation
-                    ? const CircularProgressIndicator()
-                    : Text(_startLocation != null
-                        ? 'lat: ${_startLocation!.latitude}, lng: ${_startLocation!.longitude}'
-                        : 'no location'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: _startLocation != null ? _getEndLocation : null,
-                  child: const Text('get end location'),
-                ),
-                _isFetchingEndLocation
-                    ? const CircularProgressIndicator()
-                    : Text(_endLocation != null
-                        ? 'lat: ${_endLocation!.latitude}, lng: ${_endLocation!.longitude}'
-                        : 'no location'),
-              ],
-            ),
-            Text(_distance != null
-                ? 'distance: ${_distance!.toStringAsFixed(2)} m'
-                : 'no distance'),
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _startLocation = null;
-                    _endLocation = null;
-                    _distance = null;
-                  });
-                },
-                child: const Text('reset')),
-            Text(_error != null ? _error as String : ''),
-          ],
+        child: Center(
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: _getStartLocation,
+                    child: const Text('get start location'),
+                  ),
+                  _isFetchingStartLocation
+                      ? const CircularProgressIndicator()
+                      : Text(_startLocation != null
+                          ? 'lat: ${_startLocation!.latitude}, lng: ${_startLocation!.longitude}, a: ${_startLocation!.accuracy.toStringAsFixed(2)}'
+                          : 'no location'),
+                ],
+              ),
+              const SizedBox(height: 50),
+              Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: _startLocation != null ? _getEndLocation : null,
+                    child: const Text('get end location'),
+                  ),
+                  _isFetchingEndLocation
+                      ? const CircularProgressIndicator()
+                      : Text(_endLocation != null
+                          ? 'lat: ${_endLocation!.latitude}, lng: ${_endLocation!.longitude}, a: ${_startLocation!.accuracy.toStringAsFixed(2)}'
+                          : 'no location'),
+                ],
+              ),
+              const SizedBox(height: 50),
+              Text(_distance != null
+                  ? 'distance: ${_distance!.toStringAsFixed(2)} m'
+                  : 'no distance'),
+              const SizedBox(height: 50),
+              ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _startLocation = null;
+                      _endLocation = null;
+                      _distance = null;
+                    });
+                  },
+                  child: const Text('reset')),
+              Text(_error != null ? _error as String : ''),
+            ],
+          ),
         ),
       ),
     );
